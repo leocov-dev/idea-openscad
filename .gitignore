@@ -1,5 +1,6 @@
 .idea
 .gradle
+.sandbox
 build
 .DS_Store
 out

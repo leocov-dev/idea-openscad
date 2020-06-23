@@ -1,16 +1,34 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.16'
+    id 'org.jetbrains.intellij' version '0.4.21'
 }
 
-group 'com.javampire'
-version '1.4.0-SNAPSHOT'
+apply plugin: 'org.jetbrains.intellij'
+apply plugin: 'java'
+apply plugin: 'idea'
 
-sourceCompatibility = 1.8
-sourceSets.main.java.srcDirs = ['src/main/java', 'src/main/gen']
+sourceCompatibility = javaVersion
+targetCompatibility = javaTargetVersion
+
+group pluginGroup
+version = pluginVersion
+
+tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
+
+sourceSets {
+    main {
+        java.srcDirs 'src/main/java', 'src/main/gen'
+        resources.srcDir 'src/main/resources'
+    }
+    test {
+        java.srcDir 'src/main/java'
+        resources.srcDir 'src/test/testData'
+    }
+}
 
 repositories {
     mavenCentral()
+    maven { url 'https://dl.bintray.com/jetbrains/intellij-plugin-service' }
 }
 
 dependencies {
@@ -18,8 +36,22 @@ dependencies {
 }
 
 intellij {
-    //plugins = ['psiviewer:201-SNAPSHOT'] // For dev purpose only
-    updateSinceUntilBuild = false
+    version System.getenv().getOrDefault('IDEA_VERSION', ideaVersion)
+    type ideaType
+    pluginName pluginName
+    downloadSources Boolean.valueOf(sources)
+    sameSinceUntilBuild Boolean.valueOf(isEAP)
+    alternativeIdePath idePath
+    patchPluginXml {
+        sinceBuild pluginSinceBuild
+        untilBuild pluginUntilBuild
+    }
+
+//    publishPlugin {
+//        username publishUsername
+//        token publishToken
+//        channels publishChannel
+//    }
 }
 
 patchPluginXml {
@@ -31,4 +63,17 @@ patchPluginXml {
         </html>
     ]]>
     """
+}
+
+idea {
+    project {
+        jdkName         = javaVersion
+        languageLevel   = javaVersion
+    }
+}
+
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
 }

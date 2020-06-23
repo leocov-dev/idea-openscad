@@ -20,7 +20,7 @@ public class OpenSCADDocumentationProvider extends AbstractDocumentationProvider
     @Nullable
     @Override
     public PsiElement getCustomDocumentationElement(
-            @NotNull Editor editor, @NotNull PsiFile file, @Nullable PsiElement contextElement
+            @NotNull Editor editor, @NotNull PsiFile file, @Nullable PsiElement contextElement, int targetOffset
     ) {
         LOG.debug("getCustomDocumentationElement called with: " + contextElement);
         // return super.getCustomDocumentationElement(editor, file, contextElement);

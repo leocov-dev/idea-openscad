@@ -1,4 +1,4 @@
-include <subColorProvider.scad>
+include <SubColorProvider.scad>
 
 module colorProvide() {
     color("#FF0002") cube([var3, var3, var3]);

@@ -3,7 +3,7 @@
   <name>OpenSCAD Language Support</name>
   <vendor email="idea-openscad@javampire.com" url="http://github.com/ncsaba/idea-openscad">Csaba Nagy</vendor>
 
-  <idea-version since-build="192.2549" />
+  <depends>com.intellij.modules.lang</depends>
 
   <description><![CDATA[
     Syntax highlighting and refactoring support for OpenSCAD files.
@@ -57,7 +57,5 @@
       <add-to-group group-id="EditorTabPopupMenu" anchor="last" />
     </group>
   </actions>
-
-  <depends>com.intellij.modules.lang</depends>
 
 </idea-plugin>
